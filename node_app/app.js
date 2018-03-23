@@ -91,8 +91,8 @@ app.get("/list",(req,res)=>{
 });
 app.get("/new",(req,res)=>{
     db.getDb((err,db)=>{
-        var newpaper = db.collection("wallpaper");
-        newpaper.find({"store": "qiniu"}).toArray((err,result)=>{
+        var newpaper = db.collection("paper");
+        newpaper.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
         })
@@ -101,7 +101,7 @@ app.get("/new",(req,res)=>{
 app.get("/recommend",(req,res)=>{
     db.getDb((err,db)=>{
         var recommend = db.collection("recommend");
-        recommend.find({"store":"qiniu"}).toArray((err,result)=>{
+        recommend.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
         })
@@ -110,7 +110,7 @@ app.get("/recommend",(req,res)=>{
 app.get("/hot",(req,res)=>{
     db.getDb((err,db)=>{
         var hot = db.collection("hot");
-        hot.find({"store":"qiniu"}).toArray((err,result)=>{
+        hot.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
         })
@@ -139,7 +139,7 @@ app.get("/detail_re",(req,res)=>{
 app.get("/detail_new",(req,res)=>{
     var img = req.query.img;
     db.getDb((err,db)=>{
-        var new_paper = db.collection("wallpaper");
+        var new_paper = db.collection("paper");
        new_paper.find({"img":img}).toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
@@ -161,7 +161,7 @@ app.get("/detail_hot",(req,res)=>{
 app.get("/girl",(req,res)=>{
     db.getDb((err,db)=>{
         var girl = db.collection("girl");
-        girl.find({"store":"qiniu"}).toArray((err,result)=>{
+        girl.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -182,7 +182,7 @@ app.get("/girl1",(req,res)=>{
 app.get("/animation",(req,res)=>{
     db.getDb((err,db)=>{
         var animation = db.collection("animation");
-        animation.find({"store":"qiniu"}).toArray((err,result)=>{
+        animation.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -203,7 +203,7 @@ app.get("/animation1",(req,res)=>{
 app.get("/landscape",(req,res)=>{
     db.getDb((err,db)=>{
         var landscape = db.collection("landscape");
-        landscape.find({"store":"qiniu"}).toArray((err,result)=>{
+        landscape.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -224,7 +224,7 @@ app.get("/landscape1",(req,res)=>{
 app.get("/game",(req,res)=>{
     db.getDb((err,db)=>{
         var game = db.collection("game");
-        game.find({"store":"qiniu"}).toArray((err,result)=>{
+        game.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -245,7 +245,7 @@ app.get("/game1",(req,res)=>{
 app.get("/text",(req,res)=>{
     db.getDb((err,db)=>{
         var text = db.collection("text");
-        text.find({"store":"qiniu"}).toArray((err,result)=>{
+        text.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -266,7 +266,7 @@ app.get("/text1",(req,res)=>{
 app.get("/vision",(req,res)=>{
     db.getDb((err,db)=>{
         var vision = db.collection("vision");
-        vision.find({"store":"qiniu"}).toArray((err,result)=>{
+        vision.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -287,7 +287,7 @@ app.get("/vision1",(req,res)=>{
 app.get("/emotion",(req,res)=>{
     db.getDb((err,db)=>{
         var emotion = db.collection("emotion");
-        emotion.find({"store":"qiniu"}).toArray((err,result)=>{
+        emotion.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -308,7 +308,7 @@ app.get("/emotion1",(req,res)=>{
 app.get("/creative",(req,res)=>{
     db.getDb((err,db)=>{
         var creative = db.collection("creative");
-        creative.find({"store":"qiniu"}).toArray((err,result)=>{
+        creative.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -329,7 +329,7 @@ app.get("/creative1",(req,res)=>{
 app.get("/celebrity",(req,res)=>{
     db.getDb((err,db)=>{
         var celebrity = db.collection("celebrity");
-        celebrity.find({"store":"qiniu"}).toArray((err,result)=>{
+        celebrity.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -350,7 +350,7 @@ app.get("/celebrity1",(req,res)=>{
 app.get("/stuff",(req,res)=>{
     db.getDb((err,db)=>{
         var stuff = db.collection("stuff");
-        stuff.find({"store":"qiniu"}).toArray((err,result)=>{
+        stuff.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -371,7 +371,7 @@ app.get("/stuff1",(req,res)=>{
 app.get("/art",(req,res)=>{
     db.getDb((err,db)=>{
         var art = db.collection("art");
-        art.find({"store":"qiniu"}).toArray((err,result)=>{
+        art.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -392,7 +392,7 @@ app.get("/art1",(req,res)=>{
 app.get("/man",(req,res)=>{
     db.getDb((err,db)=>{
         var man = db.collection("man");
-        man.find({"store":"qiniu"}).toArray((err,result)=>{
+        man.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -413,7 +413,7 @@ app.get("/man1",(req,res)=>{
 app.get("/cartoon",(req,res)=>{
     db.getDb((err,db)=>{
         var cartoon = db.collection("cartoon");
-        cartoon.find({"store":"qiniu"}).toArray((err,result)=>{
+        cartoon.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -434,7 +434,7 @@ app.get("/cartoon1",(req,res)=>{
 app.get("/machine",(req,res)=>{
     db.getDb((err,db)=>{
         var machine = db.collection("machine");
-        machine.find({"store":"qiniu"}).toArray((err,result)=>{
+        machine.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -455,7 +455,7 @@ app.get("/machine1",(req,res)=>{
 app.get("/cityscape",(req,res)=>{
     db.getDb((err,db)=>{
         var cityscape = db.collection("cityscape");
-        cityscape.find({"store":"qiniu"}).toArray((err,result)=>{
+        cityscape.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -476,7 +476,7 @@ app.get("/cityscape1",(req,res)=>{
 app.get("/animal",(req,res)=>{
     db.getDb((err,db)=>{
         var animal = db.collection("animal");
-        animal.find({"store":"qiniu"}).toArray((err,result)=>{
+        animal.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -497,7 +497,7 @@ app.get("/animal1",(req,res)=>{
 app.get("/sport",(req,res)=>{
     db.getDb((err,db)=>{
         var sport = db.collection("sport");
-        sport.find({"store":"qiniu"}).toArray((err,result)=>{
+        sport.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -518,7 +518,7 @@ app.get("/sport1",(req,res)=>{
 app.get("/movie",(req,res)=>{
     db.getDb((err,db)=>{
         var movie = db.collection("movie");
-        movie.find({"store":"qiniu"}).toArray((err,result)=>{
+        movie.find().toArray((err,result)=>{
             if(err) throw err;
             res.send(result);
             db.close();
@@ -554,9 +554,10 @@ app.get("/movie1",(req,res)=>{
 // })
 app.get("/sc",(req,res)=>{
     var img = req.query.img;
+    var users = req.query.user;
     db.getDb((err,db)=>{
         var sc = db.collection("shoucang");
-         sc.find({"img":img}).toArray((err,result)=>{
+         sc.find({"img":img,"user":users}).toArray((err,result)=>{
             if(err) throw err;
             if(result!=""){
                 res.send("1");
@@ -602,14 +603,25 @@ app.get("/user",(req,res)=>{
     var ph = req.query.ph;
     db.getDb((err,db)=>{
         var shoucang = db.collection("shoucang");
+        var hot = db.collection("hot");
         // shoucang.find({"user":user}).toArray((err,result)=>{
         //     if(err) throw err;
             // if(result==""){
-                shoucang.insert({"user":user,"img":img,"sql":sql,"ph":ph},(err,result1)=>{
-                    if(err) throw err;
-                    console.log("插入成功")
-                    res.send(result1);
-                    db.close();
+                shoucang.insert({"user":user,"img":img,"sql":sql,"ph":ph,"wq":img},(err,result1)=>{
+                    hot.find({"img":img}).toArray((err,result)=>{
+                        if(err) throw err;
+                        if(result==""){
+                            hot.insert({"user":user,"img":img,"sql":sql,"ph":ph,"wq":img},(err,result2)=>{
+                                if(err) throw err;
+                                res.send(result2);
+                                db.close();
+                            })
+                        }else{
+                            res.send(result1);
+                            db.close();
+                        }
+                    })
+                   
                 })
         //     }else{
         //         res.send("已经插入");
@@ -645,10 +657,13 @@ app.get("/shou_pop",(req,res)=>{
     var user =  req.query.user;
     db.getDb((err,db)=>{
         var shoucang = db.collection("shoucang");
-        shoucang.deleteOne({"img":img},(err,result)=>{
+        var hot = db.collection("hot");
+        shoucang.deleteOne({"img":img,"user":user},(err,result)=>{
+            hot.deleteOne({"img":img,"user":user},(err,result1)=>{
             if(err) throw err;
-            res.send(result);
+            res.send(result1);
             db.close();
+            })
         })
            
     })

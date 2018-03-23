@@ -174,19 +174,35 @@ router.post("/mgrade",function(req,res){
   })
 })
 
-router.post("/uploadImg",function(req,res){
-
-  var img = req.body.img;
-  console.log(img);
+//上传图片
+router.post("/upload",function(req,res){
+  var tags = req.body.tags;
+  var ename = req.body.ename;
+  var wq = req.body.wq;
+  var avatarName = req.body.avatarName;
+  var re = req.body.re;
+  console.log(ename);
   MongoClient.connect(CONN_DB_STR,(err,db)=>{
     if(err) throw err;
-    var paper = db.collection("paper");
-    paper.insert({url:img},(err,result)=>{
-      res.send(url);
-      db.close;
-    })
+      var paper = db.collection("paper");
+      var recommend = db.collection("recommend");
+      var fenlei = db.collection(ename);
+      paper.insert({"wq":wq,"img":wq,"cid":avatarName,"ename":ename,"tags":tags},(err,result)=>{
+        fenlei.insert({"wq":wq,"img":wq,"cid":avatarName,"ename":ename,"tags":tags},(err,result)=>{
+          if(re=="推荐"){
+            recommend.insert({"wq":wq,"img":wq,"cid":avatarName,"ename":ename,"tags":tags},(err,result)=>{
+              res.send("成功");
+              db.close();
+            })
+          }else{
+            res.send("成功");
+            db.close();
+          }
+        })
+      })
+     
   })
-})
+});
 
 //查找所有图片
 router.post("/pic_all",function(req,res){
@@ -211,7 +227,6 @@ router.post("/pic_all",function(req,res){
     
     /* 图片上传路由 */
     router.post('/uploader', function(req, res) {
-    
       var form = new formidable.IncomingForm();   //创建上传表单
       form.encoding = 'utf-8';        //设置编辑
       form.uploadDir = '../public' + AVATAR_UPLOAD_FOLDER;     //设置上传目录
@@ -253,17 +268,11 @@ router.post("/pic_all",function(req,res){
         //显示地址；
         var showUrl = domain + AVATAR_UPLOAD_FOLDER + avatarName;
         fs.renameSync(files.fulAvatar.path, newPath);  //重命名
-        MongoClient.connect(CONN_DB_STR,(err,db)=>{
-          if(err) throw err;
-          var paper = db.collection("paper");
-          paper.insert({url:showUrl},(err,result)=>{
-            res.json({
-              "newPath":showUrl
-            });
-            db.close;
-          })
-        })
-      });
+        res.json({
+          "newPath":showUrl,
+          "avatarName":avatarName
+        });
     });
+  });
 
 module.exports = router;

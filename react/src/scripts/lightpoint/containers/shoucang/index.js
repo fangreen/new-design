@@ -11,7 +11,7 @@ export default class Shoucang extends Component{
     if(localStorage.users){
         axios.get("/shouc",{
             params:{
-                user:localStorage.users
+                user:localStorage.users                  //查找user当前值对应的收藏
             }
         }).then(res=>{
             if(res.data==1){

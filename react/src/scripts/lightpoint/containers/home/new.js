@@ -14,8 +14,8 @@ export default class Recommend extends Component{
         const {dispatch} = this.props;
         dispatch(new_picture("/new",dispatch))
     }
-    imgdetail(detail,wallpaper,img){
-        hashHistory.push("/detail/"+detail+"/"+wallpaper+"?img="+img);
+    imgdetail(detail,paper,img){
+        hashHistory.push("/detail/"+detail+"/"+paper+"?img="+img);
     }
     render(){
         const {paper} = this.props;
@@ -24,10 +24,12 @@ export default class Recommend extends Component{
                 <ul className="re_content">
                     {
                         paper.map((item,index)=>{
-                            return(
+                            if(index>paper.length-22){
+                                return(
                                
-                                    <li key={index} onClick={()=>this.imgdetail("detail_new","wallpaper",item.img)}><img src={item.wp}/></li>
-                            )
+                                    <li key={index} onClick={()=>this.imgdetail("detail_new","paper",item.img)}><img src={item.wq}/></li>
+                              )
+                            }
                         })
                     }
                  </ul>

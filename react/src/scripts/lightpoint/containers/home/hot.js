@@ -25,7 +25,7 @@ export default class Recommend extends Component{
                         hot_paper.map((item,index)=>{
                             return(
                                
-                                    <li key={index} onClick={()=>this.imgdetail("detail_hot","hot",item.img)}><img src={item.wp}/></li>
+                                    <li key={index} onClick={()=>this.imgdetail("detail_hot","hot",item.img)}><img src={item.wq}/></li>
                             )
                         })
                     }

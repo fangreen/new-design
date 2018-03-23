@@ -32,7 +32,7 @@ export default class Classpage extends Component{
                     {
                         class_page.map((item,index)=>{
                             return(
-                                <li key={index} onClick={()=>this.imgdetail(this.props.params.ename+"1",this.props.params.ename,item.img)}><img src={item.wp}/></li>
+                                <li key={index} onClick={()=>this.imgdetail(this.props.params.ename+"1",this.props.params.ename,item.img)}><img src={item.wq}/></li>
                             )
                         })
                     }

@@ -37,8 +37,8 @@
             <option class="movie">影视</option>
         </select>
     </div>
-    <div class="pic_biaoqian"><input type="text" placeholder="添加标签"></div>
-    <div ></div>
+    <div class="pic_biaoqian"><input type="text" class="add_tags" placeholder="添加标签"></div>
+    <div class="yn_re"><select class="re"><option>不推荐</option><option>推荐</option></select></div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-7">
            <input type="button" onclick="selectImg()" value="上传">
@@ -55,7 +55,7 @@
              type:"post",
              success:function(data){
                  $.each(data,function(i){
-                     str+="<img src="+ data[i].url+">";
+                     str+="<img src="+ data[i].wq+">";
                  })
                  $(".pic_all").html(str);
              }
@@ -94,6 +94,10 @@
         //用form 表单直接 构造formData 对象; 就不需要下面的append 方法来为表单进行赋值了。
         var formData = new FormData($("#myForm")[0]);
         var url = "/users/uploader";
+        var options =  $(".fenlei option:selected");
+        var ename = options.attr("class");
+        var tags =$(".fenlei").val()+$(".add_tags").val();
+        var re = $(".re").val();
         $.ajax({
             url: url,
             type: 'POST',
@@ -109,15 +113,30 @@
              */
             contentType: false,
             success: function (responseStr) {
-                // alert(responseStr.newPath);
-                console.log(responseStr.newPath);
                 // $("img").attr({"src": responseStr.newPath}).prependTo($("body"));
+                $.ajax({
+                    url:"/users/upload",
+                    type:'post',
+                    data:{
+                        "ename":ename,
+                        "tags":tags,
+                        "wq":responseStr.newPath,
+                        "avatarName":responseStr.avatarName,
+                        "re":re
+                    },
+                    success:function(data){
+                        console.log(data)
+                    }
+                })
                 window.location.href="wallpaper";
             },
             error: function (responseStr) {
                 alert(responseStr.newPath);
             }
         });
+
+
+     
     }
    
 </script>

@@ -15,7 +15,8 @@ export default class Detail extends Component{
         dispatch(detail("/"+path,img,dispatch));
         axios.get("/sc",{
             params:{
-                img:img
+                img:img,
+                user:localStorage.users
             }
         }).then(res=>{
             if(res.data==1){
@@ -50,15 +51,6 @@ export default class Detail extends Component{
     }
     render(){
         const {detail,show} = this.props;
-        if(detail!=""){
-            var data = new Date(detail.atime)
-            var year = data.getFullYear()+47;
-            var month = data.getMonth()+1;
-            var day = data.getDate();
-            var hours = data.getHours();
-            var minute = data.getMinutes();
-            var second = data.getSeconds();
-        }
         return(
             <div className="detail">
                 <div className="de_content">
@@ -66,13 +58,7 @@ export default class Detail extends Component{
                        <img src={this.props.location.query.img}/>
                        <i className="iconfont icon-fanhui" onClick={()=>{this.goback()}}></i>
                     </div>
-                    <dl>
-                        <dt><img src={detail.avatar}/></dt>
-                        <dd>
-                            <p>{detail.name}</p>
-                            <p><span>{year}-{month}-{day}</span><span>{hours}:{minute}:{second}</span></p>
-                        </dd>
-                    </dl>
+                   
                     <div className="comment">
                         <p>还没有评论，快来抢沙发哦~</p>
                     </div>

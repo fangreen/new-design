@@ -1,0 +1,94 @@
+.classify{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .header{
+        width:1040px;
+        height:134px;
+        margin: 0 auto;
+        padding-top:14px; 
+        input{
+            padding-top:4px; 
+            padding-left:20px; 
+            height:88px;
+            width:100%;
+            border:1px solid #d2d2d2;
+            border-radius:12px;
+        }
+        input::-webkit-input-placeholder{
+            font-size: 36px;
+            color:#c7c6cb;
+        }
+    }
+    .cla_content{
+        flex:1;
+        overflow: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        dl{
+            width:312px;
+            height:512px;
+           dt{
+               width:312px;
+               height: 416px;
+               border-radius: 24px;
+               overflow: hidden; 
+               img{
+                width:400px;
+                height: 416px;
+               
+               }
+           }
+           dd{
+               text-align: center;
+               color:#414141;
+               font-size: 34px;
+               line-height: 74px;
+           }
+
+        }
+    }
+}
+.classpage{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    .header{
+        height:114px;
+        text-align: center;
+        line-height: 114px;
+        position: relative;
+        h2{
+            font-weight: normal;
+            font-size:38px;
+            color:#303030;
+        }
+        i{
+            position: absolute;
+            top:0;
+            left:40px;
+            font-size:48px;
+            color:#777777;
+        }
+    }
+    .class_content{
+       flex: 1;
+       overflow: auto; 
+       width:100%;
+       display: flex;
+       flex-wrap: wrap;
+       justify-content: space-around;
+       li{
+           width:344px;
+           height:582px;
+           margin-bottom:16px;
+
+           img{
+             width:344px;
+             height:582px;
+           }
+       }
+    }
+}

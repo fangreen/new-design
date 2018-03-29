@@ -24,7 +24,7 @@ export default class Recommend extends Component{
                 <ul className="re_content">
                     {
                         paper.map((item,index)=>{
-                            if(index>paper.length-22){
+                            if(index>paper.length-40){
                                 return(
                                
                                     <li key={index} onClick={()=>this.imgdetail("detail_new","paper",item.img)}><img src={item.wq}/></li>

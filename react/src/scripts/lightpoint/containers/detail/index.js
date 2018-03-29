@@ -49,6 +49,10 @@ export default class Detail extends Component{
         }
         
     }
+    comment=()=>{
+        var cstr="";
+        cstr=`<input type="text">`;
+    }
     render(){
         const {detail,show} = this.props;
         return(
@@ -61,6 +65,7 @@ export default class Detail extends Component{
                    
                     <div className="comment">
                         <p>还没有评论，快来抢沙发哦~</p>
+                        
                     </div>
                     <ul>
                         <li></li>
@@ -69,7 +74,7 @@ export default class Detail extends Component{
                 <div className="de_footer">
                     <i className="iconfont icon-xiazai1"></i>
                     <i className={"iconfont icon-wodeshoucang- "+(show==true?"active":"")} onClick={()=>{this.shoucang(detail.img,this.props.params.sql)}}></i>
-                    <i className="iconfont icon-comment"></i>
+                    <i className="iconfont icon-comment" onClick={()=>{this.comment()}}></i>
                     <i className="iconfont icon-share"></i>
                 </div>
             </div>

@@ -181,7 +181,6 @@ router.post("/upload",function(req,res){
   var wq = req.body.wq;
   var avatarName = req.body.avatarName;
   var re = req.body.re;
-  console.log(ename);
   MongoClient.connect(CONN_DB_STR,(err,db)=>{
     if(err) throw err;
       var paper = db.collection("paper");
@@ -224,6 +223,7 @@ router.post("/pic_all",function(req,res){
         TITLE = 'formidable上传示例',
         AVATAR_UPLOAD_FOLDER = '/avatar/',
         domain = "http://localhost:7620";
+        var images = require("images");
     
     /* 图片上传路由 */
     router.post('/uploader', function(req, res) {
@@ -231,10 +231,9 @@ router.post("/pic_all",function(req,res){
       form.encoding = 'utf-8';        //设置编辑
       form.uploadDir = '../public' + AVATAR_UPLOAD_FOLDER;     //设置上传目录
       form.keepExtensions = true;     //保留后缀
-      form.maxFieldsSize = 2 * 1024 * 1024;   //文件大小
-    
+      form.maxFieldsSize = 20 *1024*1024;   //文件大小
+      form.maxFilesSize = 20 * 1024 * 1024;
       form.parse(req, function(err, fields, files) {
-    
         if (err) {
           res.locals.error = err;
           res.render('index', { title: TITLE });
@@ -255,13 +254,11 @@ router.post("/pic_all",function(req,res){
             extName = 'png';
             break;
         }
-    
         if(extName.length == 0){
           res.locals.error = '只支持png和jpg格式图片';
           res.render('index', { title: TITLE });
           return;
         }
-    
         var avatarName = Math.random() + '.' + extName;
         //图片写入地址；
         var newPath = form.uploadDir + avatarName;
@@ -272,6 +269,7 @@ router.post("/pic_all",function(req,res){
           "newPath":showUrl,
           "avatarName":avatarName
         });
+
     });
   });
 

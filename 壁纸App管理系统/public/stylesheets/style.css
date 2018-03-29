@@ -52,26 +52,28 @@ ul li{
   line-height: 30px;
 
 }
-header,footer{
-  height:8%;
+header{
+  height:8.4%;
   margin:0 auto;
   background: pink;
-  padding:0 20px;
   overflow: hidden;
+  padding-right: 30px;
 }
 header img{
   display: block;
-  width:200px;
-  height: 108px;
+  width:249px;
+  height: 100px;
   margin-top:-16px;
   float: left;
 }
 header i{
-  font-size:20px;
+  font-size:25px;
   color:white;  
   text-align:left;
   line-height: 75px;
   float: left;
+  margin-left: 30px;
+  text-shadow: 17px 10px 3px #fff;
 }
 header div{
   float:right;
@@ -85,7 +87,7 @@ header span{
   float:right;
   position: absolute;
   top:30px;
-  right: 53px;
+  right: 63px;
 }
 footer p{
   text-align: center;
@@ -124,8 +126,8 @@ footer p{
 .content .right{
   flex: 1;
   height:100%;
-  background: url("../images/left.jpg") no-repeat;
-  background-size: cover;
+  background: url("../images/left.jpg") no-repeat center center;
+  background-size:100%; 
 }
 .content .left .btn2{
   width:250px;
@@ -218,23 +220,7 @@ footer p{
 .form_re{
   margin-top:0;
 }
-.search{
-  float: right;
-}
-.search input{
-  border: 1px solid rgb(49, 221, 233);
-}
-.search input:nth-child(2){
-  width:35px;
-  height:27px;
-  font-size: 14px;
-  float: left
-}
-.search input:nth-child(1){
-  width:200px;
-  height:27px;
-  float: left;
-}
+
 .page{
  margin: 0 auto;
 }
@@ -261,24 +247,24 @@ footer p{
 /* 图片上传 */
 .picture{
   top:0;
-  width:150px;
-  height: 150px;
+  width:180px;
+  height: 180px;
   opacity: 0;
   position: absolute;
   outline: none;
 }
 .pic_box{
   position: relative;
-  width:150px;
-  height: 150px;
+  width:180px;
+  height: 180px;
   border:1px dashed #666;
   border-radius: 12px;
   text-align: center;
-  line-height: 150px;
+  line-height: 180px;
   overflow: hidden;
 }
 .pic_box span{
-  font-size: 100px;
+  font-size: 180px;
   color:pink;
 
 }
@@ -289,14 +275,14 @@ footer p{
 .pic_box .thumb-img-box{
   top:0;
   display: block;
-  width:150px;
-  height: 150px;
+  width:180px;
+  height: 180px;
   position: absolute;
 }
 .pic_box .thumb-img-box img{
   display: block;
-  width:150px;
-  height: 150px;
+  width:180px;
+  height:180px;
   position: absolute;
 
 }
@@ -326,4 +312,76 @@ footer p{
   height: 200px;
   display: block;
   margin:10px; 
+  opacity:0.8;
+  margin-bottom: 40px;
+}
+.pic_add .new_add{
+  font-size: 20px !important;
+  margin-bottom:20px !important; 
+  margin-left: 2px !important;
+  margin-top: 2px !important;
+}
+.pic_classify .pic_fenlei{
+  float: left;
+  font-size: 16px;
+  font-weight: normal;
+}
+.pic_classify .fenlei{
+  float: left;
+  margin-top:14px;
+  width:80px;
+  height: 28px;
+  margin-left: 10px;
+  border-radius: 3px;
+  outline: none;
+}
+.pic_biaoqian .biaoqian{
+  float: left;
+  font-size: 16px;
+  font-weight: normal;
+}
+.yn_re .tuijian{
+  float: left;
+  font-size: 16px;
+  font-weight: normal;
+}
+.yn_re select{
+  float: left;
+  margin-top:14px;
+  width:80px;
+  height: 28px;
+  margin-left: 10px;
+  border-radius: 3px;
+  outline: none;
+}
+.add_tags{
+  width:200px;
+  height: 28px;
+  border-radius: 3px;
+  border:1px solid rgb(175, 175, 175);
+}
+.upimg{
+  width:200px;
+  height: 40px;
+  color:#fff;
+  font-size: 20px;
+  background: pink;
+  border:1px solid rgb(247, 145, 162);
+  border-radius: 20px;
+  margin-top:10px;
+  margin-left: -50px;
+  box-shadow: 0px 3px 8px rgb(247, 145, 162);
+  outline: none
+}
+.search .sousuo{
+  font-size: 20px !important;
+  margin-bottom:20px !important; 
+  margin-left: 2px !important;
+  margin-top: 40px !important;
+}
+.search input{
+  width:200px;
+  height: 28px;
+  border-radius: 3px;
+  border:1px solid rgb(175, 175, 175);
 }

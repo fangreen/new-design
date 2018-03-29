@@ -6,16 +6,17 @@
 </head>
 <body>
     <div class="pic_right">
+
 <form role="form" id="myForm"  method="post" enctype="multipart/form-data" class="pic_add">
-    <div><h3>新增壁纸</h3></div>
+    <div><h3 class="new_add">新增壁纸</h3></div>
     <div class="form-group">
         <div class="pic_box"><span>+</span>
             <div class="thumb-img-box" id="thumb-box"></div>
             <input type="file" name="fulAvatar" id="file_upload" value="" class="picture" placeholder="图片地址" onchange="upImg()">
         </div>
-        <label for="url" class="pic_xuanze">图片选择</label>
     </div>
     <div class="pic_classify">
+        <h3 class="pic_fenlei">选择分类</h3>
         <select class="fenlei">
             <option class="girl">美女</option>
             <option class="animation">动漫</option>
@@ -37,12 +38,17 @@
             <option class="movie">影视</option>
         </select>
     </div>
-    <div class="pic_biaoqian"><input type="text" class="add_tags" placeholder="添加标签"></div>
-    <div class="yn_re"><select class="re"><option>不推荐</option><option>推荐</option></select></div>
+    <div class="yn_re"><h3 class="tuijian">是否推荐</h3><select class="re"><option>不推荐</option><option>推荐</option></select></div>
+    <div class="pic_biaoqian"><h3 class="biaoqian">添加标签</h3><input type="text" class="add_tags" placeholder="添加标签"></div>
+    
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-7">
-           <input type="button" onclick="selectImg()" value="上传">
+           <input type="button" onclick="selectImg()" class="upimg" value="上   传">
         </div>
+    </div>
+    <div class="search">
+        <h3 class="sousuo">壁纸搜索</h3>
+        <input type="text" placeholder="壁纸搜索">
     </div>
 </form>
 <div class="pic_all"></div>
@@ -114,6 +120,7 @@
             contentType: false,
             success: function (responseStr) {
                 // $("img").attr({"src": responseStr.newPath}).prependTo($("body"));
+                console.log(responseStr.newPath);
                 $.ajax({
                     url:"/users/upload",
                     type:'post',

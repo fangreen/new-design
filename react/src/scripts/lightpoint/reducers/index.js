@@ -27,7 +27,9 @@ var initState = {
     str:"",
     click:"lo",
     click1:"lg",
-    p:""
+    p:"",
+    pl:false,
+    all_pl:[],
 
 }
 
@@ -64,6 +66,14 @@ export default (state=initState,action)=>{
         break;
         case "change_show":
         state.show = !state.show;
+        return Object.assign({},state);
+        break;
+        case "change_pl":
+        state.pl = !state.pl;
+        return Object.assign({},state);
+        break;
+        case "add_comment":
+        state.all_pl = action.data;
         return Object.assign({},state);
         break;
         // case "re_success":

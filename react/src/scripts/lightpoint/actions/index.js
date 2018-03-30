@@ -111,7 +111,11 @@ export function change_show(){
         type:"change_show",
     }
 }
-
+export function change_pl(){
+    return {
+        type:"change_pl",
+    }
+}
 export function shou_add(url,user,img,sql,dispatch){
     return axios.get(url,{
         params:{
@@ -176,3 +180,10 @@ export function user_add(url,user,img,sql,ph,dispatch){
 //         return dispatch({type:"change_login",json})
 //     })
 // }
+//添加评论
+export function add_comment(data){
+    return {
+        type:"add_comment",
+        data
+    }
+}

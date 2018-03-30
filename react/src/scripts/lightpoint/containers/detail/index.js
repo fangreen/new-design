@@ -1,11 +1,11 @@
 import React ,{Component} from "react";
 import {connect} from "react-redux";
 import {detail} from "../../actions";
-import {change_show,shou_add,shou_pop,user_add} from "../../actions";
-import { message, Button } from 'antd';
+import {change_show,change_pl,shou_add,shou_pop,user_add,add_comment} from "../../actions";
+import { message, Button,Input} from 'antd';
 import axios from "axios";
 @connect(
-    (state)=>({detail:state.detail,show:state.show})
+    (state)=>({detail:state.detail,show:state.show,pl:state.pl,all_pl:state.all_pl})
 )
 export default class Detail extends Component{
     componentWillMount(){
@@ -13,6 +13,7 @@ export default class Detail extends Component{
         var path = this.props.params.ph;
         const {dispatch} = this.props;
         dispatch(detail("/"+path,img,dispatch));
+        this.setState({cpl:<p>还没有评论，快来抢沙发哦~</p>});
         axios.get("/sc",{
             params:{
                 img:img,
@@ -22,6 +23,19 @@ export default class Detail extends Component{
             if(res.data==1){
                 dispatch(change_show())
             }
+        })
+
+        axios.get("/spl",{
+            params:{
+               "img":img
+            }
+        }).then(res=>{
+                if(res.data[0]){
+                   this.setState({cpl:<div><span></span><p>最新评论</p></div>});
+                }else{
+                    this.setState({cpl:<p>还没有评论，快来抢沙发哦~</p>});
+                }
+                dispatch(add_comment(res.data));
         })
     }
     goback=()=>{
@@ -50,11 +64,48 @@ export default class Detail extends Component{
         
     }
     comment=()=>{
-        var cstr="";
-        cstr=`<input type="text">`;
+        const {dispatch,pl} = this.props;
+        dispatch(change_pl());
+        this.setState({cpl:<div><input id="pinglun" type="text" placeholder="请输入评论"/><button onClick={()=>{this.cbtn()}}>提交</button></div>});
+    }
+    cbtn=()=>{
+        const {dispatch,pl} = this.props;
+        var img = this.props.location.query.img;
+        dispatch(change_pl());
+        var pinglun = document.getElementById("pinglun");
+        var d = new Date();
+        var y = d.getFullYear();
+        var m = d.getMonth()+1;
+        var r = d.getDate();
+        var h = d.getHours();
+        var f = d.getMinutes();
+        var s = d.getSeconds();
+        var nt = y+"-"+m+"-"+r+"   "+h+":"+f+":"+s;
+        axios.get("/comment",{
+            params:{
+                pinglun:pinglun.value,
+                user:localStorage.users,
+                dtime:nt,
+                img:img
+            }
+        }).then(res=>{
+                axios.get("/spl",{
+                    params:{
+                    "img":img
+                    }
+                }).then(res=>{
+                        if(res.data[0]){
+                        this.setState({cpl:<div><span></span><p>最新评论</p></div>});
+                        }else{
+                            this.setState({cpl:<p>还没有评论，快来抢沙发哦~</p>});
+                        }
+                        dispatch(add_comment(res.data));
+                })
+        })
+        this.setState({cpl:<div><span></span><p>最新评论</p></div>});
     }
     render(){
-        const {detail,show} = this.props;
+        const {detail,show,pl,all_pl} = this.props;
         return(
             <div className="detail">
                 <div className="de_content">
@@ -64,17 +115,31 @@ export default class Detail extends Component{
                     </div>
                    
                     <div className="comment">
-                        <p>还没有评论，快来抢沙发哦~</p>
-                        
+                        {this.state.cpl}
                     </div>
-                    <ul>
-                        <li></li>
+                    <ul ref="pinglun" className="pinglun">
+                        {
+                        all_pl.map((item,d)=>{
+                                return (
+                                    <li key={d}>
+                                        <div className="upl">
+                                            <div>
+
+                                            </div>
+                                            <div>
+                                                
+                                            </div>
+                                        </div>
+                                    </li>
+                                )
+                            })
+                        }
                     </ul>
                 </div>
                 <div className="de_footer">
                     <i className="iconfont icon-xiazai1"></i>
                     <i className={"iconfont icon-wodeshoucang- "+(show==true?"active":"")} onClick={()=>{this.shoucang(detail.img,this.props.params.sql)}}></i>
-                    <i className="iconfont icon-comment" onClick={()=>{this.comment()}}></i>
+                    <i className={"iconfont icon-comment "+(pl==true?"active":"")} onClick={()=>{this.comment()}}></i>
                     <i className="iconfont icon-share"></i>
                 </div>
             </div>

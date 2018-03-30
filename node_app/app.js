@@ -770,3 +770,33 @@ app.get("/re_success",(req,res)=>{
     }
   })
 })
+
+
+//评论
+app.get("/comment",(req,res)=>{
+    var dtime = req.query.dtime;
+    var user = req.query.user;
+    var img = req.query.img;
+    var pinglun = req.query.pinglun;
+    var re = /妈的|傻逼|操你妈|sb|共产党|国名党|反动派|卧槽+/gi;
+    var zpinglun = pinglun.replace(re,"***");
+    db.getDb((err,db)=>{
+        var comment = db.collection("comment");
+        comment.insert({"wq":img,"user":user,"pinglun":zpinglun,"dtime":dtime,"dz":0},(err,result)=>{
+            if(err) throw err;
+            res.send(zpinglun);
+        })
+    })
+})
+
+app.get("/spl",(req,res)=>{
+    var img = req.query.img;
+    db.getDb((err,db)=>{
+        var comment = db.collection("comment");
+        comment.find({"wq":img}).toArray((err,result)=>{
+            if(err) throw err;
+            res.send(result);
+            db.close();
+        })
+    })
+})

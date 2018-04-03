@@ -800,3 +800,61 @@ app.get("/spl",(req,res)=>{
         })
     })
 })
+
+//点赞
+ app.get("/dz",(req,res)=>{
+     var dtime = req.query.dtime;
+     var dzuser = req.query.dzuser;
+     var dzsl = req.query.dzsl;
+     var user = req.query.user;
+     var img = req.query.img;
+     db.getDb((err,db)=>{
+         var comment = db.collection("comment");
+         comment.find({user:user,wq:img,dtime:dtime}).toArray((err,result)=>{
+            if(err) throw err;
+            var arr=[];
+            if(!result[0].dzuser){
+               arr.push(dzuser);
+            }else{
+                var arr1=[];
+                arr1.push(dzuser);
+                arr = arr1.concat(result[0].dzuser);
+              
+            }
+            comment.update({user:user,wq:img,dtime:dtime},{
+                $set:{
+                   dzuser:arr,
+                   dz:dzsl,
+                  }
+                },(err,result1)=>{
+                  if(err) throw err;
+                  res.send("成功");
+                })
+            db.close();
+        })
+      
+     })
+ })
+
+ app.get("/qdz",(req,res)=>{
+    var dzuser = req.query.dzuser;
+    var carr=[];
+    db.getDb((err,db)=>{
+        var comment = db.collection("comment");
+        comment.find().toArray((err,result)=>{
+            if(err) throw err;
+            var len = result.length;
+           
+            for(var i=0;i<len;i++){
+                if(result[i].dzuser!=undefined){
+                for(var j=0;j<result[i].dzuser.length;j++){
+                    if(result[i].dzuser[j]==dzuser){
+                        carr.push(result[i]._id);
+                    }
+                }
+            }
+        }
+            res.send(carr);
+        })
+    })
+ })

@@ -11,7 +11,7 @@ export default class Detail extends Component{
     componentWillMount(){
         var img = this.props.location.query.img;
         var path = this.props.params.ph;
-        const {dispatch} = this.props;
+        const {dispatch ,all_pl} = this.props;
         dispatch(detail("/"+path,img,dispatch));
         this.setState({cpl:<p>还没有评论，快来抢沙发哦~</p>});
         axios.get("/sc",{
@@ -35,7 +35,37 @@ export default class Detail extends Component{
                 }else{
                     this.setState({cpl:<p>还没有评论，快来抢沙发哦~</p>});
                 }
-                dispatch(add_comment(res.data));
+                var arr=[];
+                for(var i=0;i<res.data.length;i++){
+                    arr.unshift(res.data[i]);
+                }
+                dispatch(add_comment(arr));
+                    var dzs = document.getElementsByClassName("dzs");
+                    axios.get("/qdz",{
+                        params:{
+                            dzuser:localStorage.users,
+                        }
+                    }).then(res=>{
+                        if(res.data.length!=0){
+                            for(var i=0;i<dzs.length;i++){
+                                for(var j=0;j<res.data.length;j++){
+                                  if(dzs[i].getAttribute("id")==res.data[j]){
+                                      var adzq = dzs[i].previousElementSibling;
+                                      var adzh = adzq.previousElementSibling;
+                                      adzq.style.display="none";
+                                      adzh.style.display="block";
+                                  }
+                                }
+                            }
+                        }else{
+                            for(var k=0;k<dzs.length;k++){
+                                var adzq = dzs[k].previousElementSibling;
+                                var adzh = adzq.previousElementSibling;
+                                adzq.style.display="block"
+                                adzh.style.display="none";
+                            }
+                        }
+                    })
         })
     }
     goback=()=>{
@@ -64,9 +94,27 @@ export default class Detail extends Component{
         
     }
     comment=()=>{
-        const {dispatch,pl} = this.props;
+        const {dispatch,pl,all_pl} = this.props;
         dispatch(change_pl());
         this.setState({cpl:<div><input id="pinglun" type="text" placeholder="请输入评论"/><button onClick={()=>{this.cbtn()}}>提交</button></div>});
+        if(pl==true){
+            axios.get("/spl",{
+                params:{
+                   "img":this.props.location.query.img
+                }
+            }).then(res=>{
+                    if(res.data[0]){
+                       this.setState({cpl:<div><span></span><p>最新评论</p></div>});
+                    }else{
+                        this.setState({cpl:<p>还没有评论，快来抢沙发哦~</p>});
+                    }
+                    var arr=[];
+                    for(var i=0;i<res.data.length;i++){
+                        arr.unshift(res.data[i]);
+                    }
+                    dispatch(add_comment(arr));
+            })
+        }
     }
     cbtn=()=>{
         const {dispatch,pl} = this.props;
@@ -96,13 +144,80 @@ export default class Detail extends Component{
                 }).then(res=>{
                         if(res.data[0]){
                         this.setState({cpl:<div><span></span><p>最新评论</p></div>});
+                        var arr=[];
+                            for(var i=0;i<res.data.length;i++){
+                                arr.unshift(res.data[i]);
+                            }
+                            dispatch(add_comment(arr));
+                            var dzs = document.getElementsByClassName("dzs");
+                            var dzq = document.getElementById("dzq0");
+                            var dzh = document.getElementById("dzh0");
+                            dzq.style.display="block";
+                            dzh.style.display="none";
+                            axios.get("/qdz",{
+                                params:{
+                                    dzuser:localStorage.users,
+                                }
+                            }).then(res=>{
+                                if(res.data.length!=0){
+                                    for(var i=0;i<dzs.length;i++){
+                                        for(var j=0;j<res.data.length;j++){
+                                          if(dzs[i].getAttribute("id")==res.data[j]){
+                                              var adzq = dzs[i].previousElementSibling;
+                                              var adzh = adzq.previousElementSibling;
+                                              adzq.style.display="none";
+                                              adzh.style.display="block";
+                                          }
+                                        }
+                                    }
+                                }else{
+                                    for(var k=0;k<dzs.length;k++){
+                                        var adzq = dzs[k].previousElementSibling;
+                                        var adzh = adzq.previousElementSibling;
+                                        adzq.style.display="block"
+                                        adzh.style.display="none";
+                                    }
+                                }
+                            })    
                         }else{
                             this.setState({cpl:<p>还没有评论，快来抢沙发哦~</p>});
                         }
-                        dispatch(add_comment(res.data));
+                        
                 })
         })
         this.setState({cpl:<div><span></span><p>最新评论</p></div>});
+    }
+    dzz=(time,dzsl,user,d)=>{
+        const {dispatch} = this.props;
+        var dzq = document.getElementById("dzq"+d);
+        var dzh = document.getElementById("dzh"+d);
+        dzq.style.display="none";
+        dzh.style.display="block";
+        dzsl = Number(dzsl)+1;
+        axios.get("/dz",{
+            params:{
+                dzuser:localStorage.users,
+                user:user,
+                dtime:time,
+                dzsl:dzsl,
+                img:this.props.location.query.img
+            }
+        }).then(res=>{
+            axios.get("/spl",{
+                params:{
+                   "img":this.props.location.query.img
+                }
+            }).then(res=>{
+                    var arr=[];
+                    for(var i=0;i<res.data.length;i++){
+                        arr.unshift(res.data[i]);
+                    }
+                    dispatch(add_comment(arr));
+            })
+        })
+    }
+    componentDidMount(){
+      
     }
     render(){
         const {detail,show,pl,all_pl} = this.props;
@@ -123,13 +238,18 @@ export default class Detail extends Component{
                                 return (
                                     <li key={d}>
                                         <div className="upl">
-                                            <div>
-
+                                            <div className="pmsgd">
+                                                <dl>
+                                                    <dt></dt>
+                                                    <dd><p>{item.user}</p><span>{item.dtime}</span></dd>
+                                                </dl>
                                             </div>
-                                            <div>
-                                                
+                                            <div className="ppl">
+                                                <h3>{item.pinglun}</h3>
                                             </div>
+                                            <div className="dz"><i className="iconfont dzh" id={"dzh"+d}>&#xe668;</i><i className="iconfont dzq" id={"dzq"+d} onClick={()=>{this.dzz(item.dtime,item.dz,item.user,d)}}>&#xe918;</i><span className="dzs" id={item._id}>{item.dz}</span></div>
                                         </div>
+                                       
                                     </li>
                                 )
                             })

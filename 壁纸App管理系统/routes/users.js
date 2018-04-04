@@ -273,4 +273,40 @@ router.post("/pic_all",function(req,res){
     });
   });
 
+
+//删除图片
+var fs = require("fs");
+var path = require("path");
+router.post('/deloader', function(req, res) {
+  var img_url = req.body.url;
+  var ename = req.body.ename;
+  var url = "../public/avatar/"+img_url;
+deleteFolderRecursive = function(url) {
+  var files = [];
+  //判断给定的路径是否存在
+  if(fs.existsSync(url)) {
+      var curPath = url;
+      fs.unlinkSync(curPath);
+  }else{
+    console.log("给定的路径不存在，请给出正确的路径");
+  }
+};
+deleteFolderRecursive(url);
+
+MongoClient.connect(CONN_DB_STR,(err,db)=>{
+  if(err) throw err;
+  var paper = db.collection("paper");
+  var sql = db.collection(ename);
+  var recommend = db.collection("recommend");
+  paper.deleteOne({cid:img_url},(err,result)=>{
+    sql.deleteOne({cid:img_url},(err,result1)=>{
+      recommend.deleteOne({cid:img_url},(err,result1)=>{
+        res.send("1");
+        db.close();
+      })
+    })
+   
+  })
+ })
+})
 module.exports = router;

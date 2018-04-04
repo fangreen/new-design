@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import {connect} from "react-redux";
 import axios from "axios";
-import {Link} from "react-router"
+import {Link} from "react-router";
 @connect(
     (state)=>({shou:state.shou})
 )

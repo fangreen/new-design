@@ -50,7 +50,9 @@
         <h3 class="sousuo">壁纸搜索</h3>
         <input type="text" placeholder="壁纸搜索">
     </div>
+    <input class="delete" value="删除壁纸" type="button">
 </form>
+<button class="quxiao">取 消</button>
 <div class="pic_all"></div>
 </div>
  <script>
@@ -61,10 +63,35 @@
              type:"post",
              success:function(data){
                  $.each(data,function(i){
-                     str+="<img src="+ data[i].wq+">";
+                     str+="<img ename="+data[i].ename+" data_url="+ data[i].cid+" src="+ data[i].wq+"><span class='glyphicon glyphicon-remove-circle'></span>";
                  })
                  $(".pic_all").html(str);
              }
+         })
+         $(".delete").click(function(){
+             $(".pic_all>span").css("display","block");
+             $(".quxiao").css("display","block");
+             $(".pic_all>span").on("click",function(){
+                var url = $(this).prevAll().attr("data_url");
+                var ename = $(this).prevAll().attr("ename");
+                 $.ajax({
+                     url:"/users/deloader",
+                     type:"post",
+                     data:{
+                         url:url,
+                         ename:ename
+                     },
+                     success:function(data){
+                         console.log(data);
+                     }
+                 })
+                 $(this).prevAll().remove();
+                 $(this).remove();
+                
+             })
+         })
+         $(".quxiao").click(function(){
+            $(".pic_all>span").css("display","none");
          })
      })
  </script>

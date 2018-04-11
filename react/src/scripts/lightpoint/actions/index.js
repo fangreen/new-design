@@ -187,3 +187,9 @@ export function add_comment(data){
         data
     }
 }
+export function wp_search(wp_arr){
+    return {
+        type:"wp_search",
+        wp_arr
+    }
+}

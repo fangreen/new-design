@@ -12,12 +12,15 @@ export default class Classify extends Component{
     changeClass=(ename,name)=>{
         this.props.router.push("/classpage/"+ename+"?name="+name)
     }
+    search=()=>{
+        this.props.router.push("/search");
+    }
     render(){
         const {classify} = this.props;
         return(
             <div className="classify">
                 <div className="header">
-                    <input type="text" className="iconfont" placeholder="&#xe604; 输入关键字"/>
+                    <input type="text" className="iconfont" placeholder="&#xe604; 输入关键字" onClick={()=>{this.search()}}/>
                 </div>
                 <div className="cla_content">
                 {

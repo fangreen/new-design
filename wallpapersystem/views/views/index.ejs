@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>登录界面</title>
+	<link rel="stylesheet" href="/stylesheets/reset.css" />
+	<link rel="stylesheet" href="/stylesheets/login.css" />
+	<style>
+		body{
+			background:url(/images/login-bg.png) no-repeat;
+			background-position: center 0;  
+		    background-repeat: no-repeat;  
+		    background-attachment: fixed;  
+		    background-size: cover;  
+		    -webkit-background-size: cover;  
+		    -o-background-size: cover;  
+		    -moz-background-size: cover;  
+		    -ms-background-size: cover; 
+			overflow:hidden;
+		}
+		.loginwarrp{
+	 		margin-top:202px;
+			height:250px;
+			overflow:hidden;
+			background:#fff;
+		}
+		.loginwarrp .logo{
+			line-height:56px;
+			height:64px;
+		}
+	
+		#btnLogin{
+		    background:#ff5c50;
+			border-radius:25px;
+			width:266px;
+			height:50px;
+			color:#fff;
+			font-size:18px;
+			letter-spacing:4px;
+			outline:none;
+		}
+		.loginwarrp .login_form{
+			margin-top:35px;
+		}
+		.pwd{
+			margin-top:25px !important;
+		}
+		.login-sub{
+			margin-top:25px !important;
+			
+		}
+		.login_bg{
+			background:#fff url(/images/login_bg.png) no-repeat;
+			background-size:100%;
+			width:540px;
+			height:562px;
+			position: absolute;
+			top:9%;
+			left:35%;
+			opacity:1 !important;
+		}
+		.bolang img{
+			position:absolute;
+			top:84%;
+		}
+	</style>
+</head>
+<body>
+<div class="page">
+    <div class="login_bg">
+		<div class="loginwarrp">
+        <div class="login_form">
+			<form id="loginForm" action="/users/maglogin" method="post">
+				<li class="login-item">
+					<span>用户名：</span>
+					<input type="text" class="login_input" id="loginName" name="userid"/>
+				</li>
+				<li class="login-item pwd">
+					<span>密　码：</span>
+					<input type="password" class="login_input" id="loginPassword" name="password" />
+				</li>
+				<li class="login-sub">
+					<input type="submit" id="btnLogin" value="立即登录"/>
+				</li>                      
+           </form>
+		</div>
+	</div>
+    </div>
+</div>
+
+ <div class="bolang" id="bo">
+ 	<img src="/images/login_1.png"/>
+ 	<img src="/images/login_2.png"/>
+ 	<img src="/images/login_3.png"/>
+ </div>
+</body>
+<script type="text/javascript" src="/javascript/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/javascript/login.js"></script>
+<script type="text/javascript">
+		window.onload = function() {
+			var config = {
+				vx : 4,
+				vy : 4,
+				height : 2,
+				width : 2,
+				count : 100,
+				color : "288, 62, 27",
+				stroke : "100, 200, 180",
+				dist : 6000,
+				e_dist : 20000,
+				max_conn : 10
+			}
+			CanvasParticle(config);
+			
+			//波浪
+				var obolang = document.getElementById("bo");
+				var oimg = obolang.children;
+				clearInterval(timer);
+				var timer = setInterval(()=>{
+			   		let i = 1;
+			   		if(oimg[1].offsetTop >= 760){
+			   			oimg[1].style.top = -i + oimg[1].offsetTop + "px";
+			   		}else if(oimg[1].offsetTop < 760){
+			   			var timer1 = setInterval(()=>{
+			   				let i = 1;
+			   				oimg[1].style.top = i + oimg[1].offsetTop +"px";
+			   				if(oimg[1].offsetTop >= 780){
+			   					clearInterval(timer1);
+			   				}
+			   			},80)
+			   		}
+			   },80);
+				clearInterval(timer2);
+				var timer2 = setInterval(()=>{
+			   		let i = 1;
+			   		if(oimg[2].offsetTop >= 766){
+			   			oimg[2].style.top = -i + oimg[2].offsetTop + "px";
+			   		}else if(oimg[2].offsetTop < 766){
+			   			var timer3 = setInterval(()=>{
+			   				let i = 1;
+			   				oimg[2].style.top = i + oimg[2].offsetTop +"px";
+			   				if(oimg[2].offsetTop >= 786){
+			   					clearInterval(timer3);
+			   				}
+			   			},100)
+			   		}
+			   },100);
+				
+				
+				clearInterval(timer4);
+				var timer4 = setInterval(()=>{
+			   		let i = 1;
+			   		if(oimg[0].offsetTop >= 800){
+			   			oimg[0].style.top = -i + oimg[0].offsetTop + "px";
+			   		}else if(oimg[0].offsetTop < 800){
+			   			var timer5 = setInterval(()=>{
+			   				let i = 1;
+			   				oimg[0].style.top = i + oimg[0].offsetTop +"px";
+			   				if(oimg[0].offsetTop >= 810){
+			   					clearInterval(timer5);
+			   				}
+			   			},120)
+			   		}
+			   },120);
+		}
+			
+			
+		
+	</script>
+	<script type="text/javascript" src="/javascript/canvas-particle.js"></script>
+</html>

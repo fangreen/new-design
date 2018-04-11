@@ -30,6 +30,7 @@ var initState = {
     p:"",
     pl:false,
     all_pl:[],
+    wp_arr:[]
 
 }
 
@@ -74,6 +75,10 @@ export default (state=initState,action)=>{
         break;
         case "add_comment":
         state.all_pl = action.data;
+        return Object.assign({},state);
+        break;
+        case "wp_search":
+        state.wp_arr = action.wp_arr;
         return Object.assign({},state);
         break;
         // case "re_success":

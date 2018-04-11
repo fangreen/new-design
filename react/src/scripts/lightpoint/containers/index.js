@@ -11,6 +11,7 @@ import Classpage from "./classpage";
 import Shoucang from "./shoucang";
 import Login from "./login";
 import Register from "./register";
+import Search from "./search";
 export default class Layout extends Component{
     render(){
         return(
@@ -28,6 +29,7 @@ export default class Layout extends Component{
             <Route path="/shoucang" component={Shoucang}></Route>
             <Route path="/login" component={Login}></Route>
             <Route path="/register" component={Register}></Route>
+            <Route path="/search" component={Search}></Route>
         </Router>
         )
     }

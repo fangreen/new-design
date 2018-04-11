@@ -858,3 +858,24 @@ app.get("/spl",(req,res)=>{
         })
     })
  })
+
+ //壁纸搜索
+ app.get("/wp_search",function(req,res){
+    var wp = req.query.wp;
+    var awp=[];
+    db.getDb((err,db)=>{
+      if(err) throw err;
+      var paper = db.collection("paper");
+      paper.find().toArray((err,result)=>{
+        if(err) throw err;
+        var len = result.length;
+        for(var i=0;i<len;i++){
+          var patt1=new RegExp(wp);
+          if(patt1.test(result[i].tags)){
+            awp[i]=result[i];
+          }
+        }
+        res.send(awp);
+      })
+    })
+  })

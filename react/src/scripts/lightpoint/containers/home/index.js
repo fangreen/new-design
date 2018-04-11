@@ -23,7 +23,9 @@ export default class Picture extends Component{
     changeIndex=(idx)=>{
         this.mySwiper.slideTo(idx);
     }
-
+    search=()=>{
+        this.props.router.push("/search");
+    }
     render() {
         const {nav} = this.props;
         const {swiperIndex} = this.state;
@@ -40,7 +42,7 @@ export default class Picture extends Component{
                             )
                         })
                     }
-                  <i className="iconfont icon-sousuo2"></i>
+                  <i className="iconfont icon-sousuo2" onClick={()=>{this.search()}}></i>
                 </div>
 
                 <div className="swiper-container " id="swipe">

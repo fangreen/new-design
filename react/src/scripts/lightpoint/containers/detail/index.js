@@ -94,6 +94,7 @@ export default class Detail extends Component{
         
     }
     comment=()=>{
+        if(localStorage.users){
         const {dispatch,pl,all_pl} = this.props;
         dispatch(change_pl());
         this.setState({cpl:<div><input id="pinglun" type="text" placeholder="请输入评论"/><button onClick={()=>{this.cbtn()}}>提交</button></div>});
@@ -113,8 +114,37 @@ export default class Detail extends Component{
                         arr.unshift(res.data[i]);
                     }
                     dispatch(add_comment(arr));
+                    var dzs = document.getElementsByClassName("dzs");
+                    axios.get("/qdz",{
+                        params:{
+                            dzuser:localStorage.users,
+                        }
+                    }).then(res=>{
+                        if(res.data.length!=0){
+                            for(var i=0;i<dzs.length;i++){
+                                for(var j=0;j<res.data.length;j++){
+                                  if(dzs[i].getAttribute("id")==res.data[j]){
+                                      var adzq = dzs[i].previousElementSibling;
+                                      var adzh = adzq.previousElementSibling;
+                                      adzq.style.display="none";
+                                      adzh.style.display="block";
+                                  }
+                                }
+                            }
+                        }else{
+                            for(var k=0;k<dzs.length;k++){
+                                var adzq = dzs[k].previousElementSibling;
+                                var adzh = adzq.previousElementSibling;
+                                adzq.style.display="block"
+                                adzh.style.display="none";
+                            }
+                        }
+                    })    
             })
         }
+    }else{
+        this.props.router.push("/login");
+    }
     }
     cbtn=()=>{
         const {dispatch,pl} = this.props;
@@ -188,6 +218,7 @@ export default class Detail extends Component{
         this.setState({cpl:<div><span></span><p>最新评论</p></div>});
     }
     dzz=(time,dzsl,user,d)=>{
+        if(localStorage.users){
         const {dispatch} = this.props;
         var dzq = document.getElementById("dzq"+d);
         var dzh = document.getElementById("dzh"+d);
@@ -213,11 +244,47 @@ export default class Detail extends Component{
                         arr.unshift(res.data[i]);
                     }
                     dispatch(add_comment(arr));
+                    var dzs = document.getElementsByClassName("dzs");
+                    axios.get("/qdz",{
+                        params:{
+                            dzuser:localStorage.users,
+                        }
+                    }).then(res=>{
+                        if(res.data.length!=0){
+                            for(var i=0;i<dzs.length;i++){
+                                for(var j=0;j<res.data.length;j++){
+                                  if(dzs[i].getAttribute("id")==res.data[j]){
+                                      var adzq = dzs[i].previousElementSibling;
+                                      var adzh = adzq.previousElementSibling;
+                                      adzq.style.display="none";
+                                      adzh.style.display="block";
+                                  }
+                                }
+                            }
+                        }else{
+                            for(var k=0;k<dzs.length;k++){
+                                var adzq = dzs[k].previousElementSibling;
+                                var adzh = adzq.previousElementSibling;
+                                adzq.style.display="block"
+                                adzh.style.display="none";
+                            }
+                        }
+                    })    
             })
         })
+    }else{
+        this.props.router.push("/login");
+    }
     }
     componentDidMount(){
       
+    }
+    yulan=()=>{
+        this.refs.detail_img.style.position="absolute";
+        this.refs.detail_img.style.top="0";
+        this.refs.detail_img.style.left="0";
+        this.refs.detail_img.style.width="100%";
+        this.refs.detail_img.style.height="100%";
     }
     render(){
         const {detail,show,pl,all_pl} = this.props;
@@ -225,7 +292,7 @@ export default class Detail extends Component{
             <div className="detail">
                 <div className="de_content">
                     <div className="de_img">
-                       <img src={this.props.location.query.img}/>
+                       <img ref="detail_img" onClick={()=>this.yulan()} src={this.props.location.query.img}/>
                        <i className="iconfont icon-fanhui" onClick={()=>{this.goback()}}></i>
                     </div>
                    
@@ -260,7 +327,7 @@ export default class Detail extends Component{
                     <i className="iconfont icon-xiazai1"></i>
                     <i className={"iconfont icon-wodeshoucang- "+(show==true?"active":"")} onClick={()=>{this.shoucang(detail.img,this.props.params.sql)}}></i>
                     <i className={"iconfont icon-comment "+(pl==true?"active":"")} onClick={()=>{this.comment()}}></i>
-                    <i className="iconfont icon-share"></i>
+                    {/* <i className="iconfont icon-share"></i> */}
                 </div>
             </div>
         )

@@ -1,0 +1,19 @@
+<header>
+    <a href="/magmain"></a><img src="/images/bz_logo.png" alt=""></a>
+    <i>青清壁纸管理系统</i>
+    <div class="logout">退出</div>
+    <div class="login" onclick="window.location.href='/'">登陆</div><span>|</span>
+</header>
+<script>
+        $(function(){
+            if($.cookie("magid")!=''){
+                $(".login").text($.cookie("magid"));
+            }else{
+                $(".login").text("登陆");
+            }
+            $(".logout").click(function(){
+                $.cookie("magid","",{expirse:2,path:"/"});
+                window.location.href='/';
+            })
+        })
+    </script>
